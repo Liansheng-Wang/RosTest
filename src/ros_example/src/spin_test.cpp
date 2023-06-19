@@ -13,6 +13,7 @@
 #include <ctime>
 #include <thread>
 #include <ros/ros.h>
+#include <ros/spinner.h>
 #include <ros/callback_queue.h>
 #include <std_msgs/Int16.h>
 #include <std_msgs/String.h>
@@ -21,9 +22,10 @@
 class TestA{
 private:
   ros::NodeHandle nh_;
+  ros::CallbackQueue self_queue_;
   ros::Publisher pub_traj_;
   ros::Subscriber sub_obs_;
-  ros::CallbackQueue self_queue_;
+  ros::Subscriber sub_2_;
   std::thread* thread_run_ = nullptr;
 
 public:
@@ -34,8 +36,16 @@ public:
                               &TestA::test_cb, this,
                               ros::TransportHints().tcpNoDelay());
 
+    sub_2_ = nh_.subscribe("/test/channel", 1,
+                              &TestA::test_cb2, this,
+                              ros::TransportHints().tcpNoDelay());
     thread_run_ = new std::thread(std::bind(&TestA::run, this));
+
+
+
   }
+
+
 
   ~TestA(){
     thread_run_ = nullptr;
@@ -47,12 +57,26 @@ private:
     std::cout << "TestA: AAAAAA  " << std::endl;
   }
 
+  void test_cb2(const std_msgs::Int16::ConstPtr& msg){
+    std::cout << "TestA: AAAAAA:  2222222222 " << std::endl;
+  }
+
   void run()
   {
     std::cout << "TestA: RUN " << std::endl;  
     ros::Rate loop(5);
+
+    ros::AsyncSpinner as_(2, &self_queue_);
+
+    as_.start();
+    ros::MultiThreadedSpinner spinner(2);
+    spinner.spin(&self_queue_);
     while(ros::ok()){
       self_queue_.callAvailable();
+      loop.sleep();
+    }
+    while (ros::ok())
+    {
       loop.sleep();
     }
   }
@@ -104,7 +128,7 @@ int main(int argc, char** argv){
   ros::init(argc, argv, "test_spin_node");
   ros::NodeHandle nh;
 
-  TestB testb_;
+  // TestB testb_;
   TestA testa_;
 
   ros::Publisher test_pub = nh.advertise<std_msgs::Int16>("/test/channel", 10);
