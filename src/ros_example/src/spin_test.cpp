@@ -40,9 +40,6 @@ public:
                               &TestA::test_cb2, this,
                               ros::TransportHints().tcpNoDelay());
     thread_run_ = new std::thread(std::bind(&TestA::run, this));
-
-
-
   }
 
 
@@ -67,7 +64,6 @@ private:
     ros::Rate loop(5);
 
     ros::AsyncSpinner as_(2, &self_queue_);
-
     as_.start();
     ros::MultiThreadedSpinner spinner(2);
     spinner.spin(&self_queue_);
