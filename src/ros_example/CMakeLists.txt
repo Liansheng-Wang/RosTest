@@ -39,4 +39,9 @@ add_executable(pcl_test src/pcl_test.cpp)
 target_link_libraries(pcl_test
           ${catkin_LIBRARIES}
           ${PCL_LIBRARIES}
-        )        
+        )       
+           
+add_executable(so3_test src/so3_test.cpp)
+target_link_libraries(so3_test
+          ${catkin_LIBRARIES}
+        )       
