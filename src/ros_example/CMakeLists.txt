@@ -45,3 +45,9 @@ add_executable(so3_test src/so3_test.cpp)
 target_link_libraries(so3_test
           ${catkin_LIBRARIES}
         )       
+
+add_executable(kd_tree_test src/kd_tree.cpp)
+target_link_libraries(kd_tree_test
+          ${catkin_LIBRARIES}
+          tbb 
+        )
