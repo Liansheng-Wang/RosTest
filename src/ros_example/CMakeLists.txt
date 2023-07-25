@@ -51,3 +51,13 @@ target_link_libraries(kd_tree_test
           ${catkin_LIBRARIES}
           tbb 
         )
+
+add_executable(tcp_server src/tcp_test/tcp_server.cpp)
+target_link_libraries(tcp_server
+          ${catkin_LIBRARIES}
+        )     
+        
+add_executable(tcp_client src/tcp_test/tcp_client.cpp)
+target_link_libraries(tcp_client
+          ${catkin_LIBRARIES}
+        )
