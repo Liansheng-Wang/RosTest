@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.20)
+cmake_minimum_required(VERSION 3.16)
 project(ros_example)
 
 add_compile_options(-std=c++17)
@@ -52,12 +52,17 @@ target_link_libraries(kd_tree_test
           tbb 
         )
 
-add_executable(tcp_server src/tcp_test/tcp_server.cpp)
-target_link_libraries(tcp_server
+add_executable(ax_xb src/ax_xb.cpp)
+target_link_libraries(ax_xb
           ${catkin_LIBRARIES}
         )     
+
+# add_executable(tcp_server src/tcp_test/tcp_server.cpp)
+# target_link_libraries(tcp_server
+#           ${catkin_LIBRARIES}
+#         )     
         
-add_executable(tcp_client src/tcp_test/tcp_client.cpp)
-target_link_libraries(tcp_client
-          ${catkin_LIBRARIES}
-        )
+# add_executable(tcp_client src/tcp_test/tcp_client.cpp)
+# target_link_libraries(tcp_client
+#           ${catkin_LIBRARIES}
+#         )
