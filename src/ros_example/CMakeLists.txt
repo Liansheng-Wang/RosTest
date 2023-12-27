@@ -66,3 +66,5 @@ add_executable(rate_sleep_test src/rate_sleep_test.cpp)
 target_link_libraries(rate_sleep_test
           ${catkin_LIBRARIES}
         )
+
+add_executable(abs_test src/abs_test.cpp)
