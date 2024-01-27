@@ -68,3 +68,18 @@ target_link_libraries(rate_sleep_test
         )
 
 add_executable(abs_test src/abs_test.cpp)
+
+
+add_executable(spin_time_pub src/spin_time_pub.cpp)
+target_link_libraries(spin_time_pub
+          ${catkin_LIBRARIES}
+        )
+add_executable(spin_time_pub2 src/spin_time_pub2.cpp)
+target_link_libraries(spin_time_pub2
+          ${catkin_LIBRARIES}
+        )
+
+add_executable(spin_time_sub src/spin_time_sub.cpp)
+target_link_libraries(spin_time_sub
+          ${catkin_LIBRARIES}
+        )
